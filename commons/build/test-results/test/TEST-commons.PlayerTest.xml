@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="commons.PlayerTest" tests="36" skipped="0" failures="0" errors="0" timestamp="2022-04-06T14:44:25" hostname="archsus" time="0.032">
+  <properties/>
+  <testcase name="nameConstructorTest()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="idNameScoreConstructorTest()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="setNameTest1()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="setNameTest2()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="compareToTest()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="nameScoreConstructorTest()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest10()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest11()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest13()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest1()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="equalsTest2()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest3()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest5()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest6()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="equalsTest7()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest8()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="equalsTest9()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="TestStreakIncrement()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="getNameTest()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="setIdTest1()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="setIdTest2()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="getIdTest()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="TestResetSteak()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="TestStreakGetter()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="TestStreakSetter()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="getScoreTest1()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="getScoreTest2()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="emptyConstructorTest()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="toStringTest1()" classname="commons.PlayerTest" time="0.003"/>
+  <testcase name="toStringTest2()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="toStringTest3()" classname="commons.PlayerTest" time="0.001"/>
+  <testcase name="toStringTest4()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="setScoreTest1()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="setScoreTest2()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="setScoreTest3()" classname="commons.PlayerTest" time="0.0"/>
+  <testcase name="setScoreTest4()" classname="commons.PlayerTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

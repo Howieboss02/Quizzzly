@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MultiPlayerGame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons</a> &gt; <a href="index.source.html" class="el_package">commons</a> &gt; <span class="el_source">MultiPlayerGame.java</span></div><h1>MultiPlayerGame.java</h1><pre class="source lang-java linenums">package commons;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import commons.questions.Question;
+import lombok.Data;
+
+import java.util.List;
+import java.util.Objects;
+
+/**
+ * Multiplayer game class
+ * Handles a list of players instead of just one
+ */
+@Data
+//@ToString @EqualsAndHashCode
+public class MultiPlayerGame {
+
+    private int gameID;
+    private List&lt;Player&gt; players;
+    private List&lt;Question&gt; questions;
+<span class="pc" id="L21">    private int questionNumber = -1;</span>
+
+    // for synchronization of client with server
+    // can be &quot;WAITINGROOM&quot;,  &quot;LOADING SCREEN&quot;, &quot;QUESTION&quot;, &quot;LEADERBOARD&quot;, &quot;ENDSCREEN&quot;
+    private String currentScreen;
+
+    /**
+     * Empty constructor
+     * Used by Jackson to initialize object from JSON
+     */
+<span class="fc" id="L31">    public MultiPlayerGame() {}</span>
+
+    /**
+     * Creates a new game with existing players
+     * @param players list of players
+     */
+<span class="nc" id="L37">    public MultiPlayerGame(List&lt;Player&gt; players) {</span>
+<span class="nc" id="L38">        this.currentScreen = &quot;WAITINGROOM&quot;;</span>
+<span class="nc" id="L39">        this.players = players;</span>
+<span class="nc" id="L40">    }</span>
+
+    /**
+     * Creates a new game with specified amount of questions
+     * @param players list of players
+     * @param questions list of questions for the game
+     */
+<span class="fc" id="L47">    public MultiPlayerGame(int gameID, List&lt;Player&gt; players, List&lt;Question&gt; questions) {</span>
+<span class="fc" id="L48">        this.gameID = gameID;</span>
+<span class="fc" id="L49">        this.currentScreen = &quot;LOADING SCREEN&quot;;</span>
+<span class="fc" id="L50">        this.players = players;</span>
+<span class="fc" id="L51">        this.questions = questions;</span>
+<span class="fc" id="L52">    }</span>
+
+    /**
+     * Adds a question to the list. Checks for duplicates
+     * @param question to be added
+     * @return true if question was added, false otherwise
+     */
+    public boolean addQuestion(Question question){
+<span class="fc bfc" id="L60" title="All 4 branches covered.">        if(questions.contains(question) || question == null)</span>
+<span class="fc" id="L61">            return false;</span>
+<span class="fc" id="L62">        return questions.add(question);</span>
+    }
+
+    /**
+     * This method is used in case a player leaves the game
+     * and the player list has to reflect this change
+     * @param player player to be removed
+     * @return true if the player was removed successfully
+     *          false if the player could not be removed or
+     *          the player was not in the player list
+     */
+    public boolean removePlayer(Player player) {
+<span class="fc" id="L74">        return this.players.remove(player);</span>
+    }
+
+    /**
+     * This method adds points to the scores of every player
+     * @param answerTimes a list containing the time measured in seconds each player
+     *                    took to answer a question
+     * @param guessQuestionRates a list containing the rates on how good the guess was.
+     *                           for all other questions besides the estimation one, this will
+     *                           be set to 1.0
+     */
+    public void addPointsForEveryone(List&lt;Integer&gt; answerTimes, List&lt;Double&gt; guessQuestionRates) {
+<span class="fc bfc" id="L86" title="All 2 branches covered.">        for(int i = 0; i &lt; players.size(); i++) {</span>
+<span class="fc" id="L87">            addPointsForPlayer(answerTimes.get(i), guessQuestionRates.get(i), players.get(i));</span>
+        }
+<span class="fc" id="L89">    }</span>
+
+    /**
+     * This method adds points to a score of a player
+     * A particular formula for the points has been developed.
+     * parsing an int equal to -1 will be qualified as answering the question wrongly
+     * @param timeWhenAnswered time in seconds how long it took a user to answer a question
+     * @param guessQuestionRate for every other question than an estimation question this will be set to 1.0
+     *                          for the estimation question this will be set to a percentage how good the guess was
+     */
+    public int addPointsForPlayer(int timeWhenAnswered, double guessQuestionRate, Player player){
+<span class="fc bfc" id="L100" title="All 2 branches covered.">        if(timeWhenAnswered == -1){</span>
+<span class="fc" id="L101">            player.resetStreak();</span>
+<span class="fc" id="L102">            return 0;</span>
+        }
+<span class="fc" id="L104">        player.incrementStreak();</span>
+<span class="fc" id="L105">        int currentScore = player.getScore();</span>
+<span class="fc" id="L106">        int pointsToBeAdded = (int)Math.round(guessQuestionRate * getPointsToBeAdded(timeWhenAnswered, player));</span>
+<span class="fc" id="L107">        player.setScore( currentScore + pointsToBeAdded );</span>
+<span class="fc" id="L108">        return pointsToBeAdded;</span>
+    }
+
+    /**
+     * The points achievable for a single question are from 950 to 1050 depending on the number of seconds it took the user to select an answer
+     * Each second subtracts 5 points from the added score
+     * The score is then multiplied by (100 + streak)% and added to the score of a player
+     * @param time time it took the player to answer the question
+     * @param player player whose score is being calculated
+     * @return the points that have to be added to the player's score
+     */
+    public int getPointsToBeAdded(int time, Player player) {
+<span class="fc" id="L120">        double streakFactor = (100.0 + player.getStreak()) / 100.0;</span>
+<span class="fc" id="L121">        var points = Math.round(streakFactor * (1050 - 5 * time));</span>
+<span class="fc" id="L122">        return (int)points;</span>
+    }
+
+    /**
+     * Set the current screen
+     * for synchronization of client with server
+     * can be &quot;LOADING SCREEN&quot;, &quot;QUESTION&quot;, &quot;LEADERBOARD&quot;, &quot;ENDSCREEN&quot;
+     * @param screen the screen to be set
+     */
+    public void setCurrentScreen(String screen) {
+<span class="fc bfc" id="L132" title="All 2 branches covered.">        switch (screen) {</span>
+            case &quot;ENDSCREEN&quot;:
+            case &quot;LEADERBOARD&quot;:
+            case &quot;LOADING SCREEN&quot;:
+            case &quot;QUESTION&quot;:
+<span class="fc" id="L137">                this.currentScreen = screen;</span>
+<span class="fc" id="L138">                break;</span>
+            default:
+<span class="fc" id="L140">                throw new IllegalArgumentException(&quot;Not a valid screen&quot;);</span>
+        }
+<span class="fc" id="L142">    }</span>
+
+    /**
+     * Set the game ID
+     * @param gameID the ID that will be set
+     *               this parameter cannot be negative
+     */
+    public void setGameID(int gameID) {
+<span class="fc" id="L150">        this.gameID = Math.max(gameID, 0);</span>
+<span class="fc" id="L151">    }</span>
+
+    /**
+     * Increments questionNumber
+     */
+    public void nextQuestion() {
+<span class="fc" id="L157">        questionNumber++;</span>
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Hash of the player list
+     * @return the hashed player list
+     */
+    public int playerListHash() {
+<span class="fc" id="L165">        return Objects.hash(players);</span>
+    }
+
+    /**
+     * Gets the hashcode of the list of players, the name of the current screen and the number of the current question
+     * @return A GameUpdatesPacket object, which contains compact information about the game
+     */
+    @JsonIgnore
+    public GameUpdatesPacket getGameStatus() {
+<span class="fc" id="L174">        return new GameUpdatesPacket(Objects.hash(players), currentScreen, questionNumber);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

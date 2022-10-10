@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="commons.ComparativeQuestionTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2022-04-06T14:44:25" hostname="archsus" time="0.008">
+  <properties/>
+  <testcase name="noArgsConstructorTest()" classname="commons.ComparativeQuestionTest" time="0.003"/>
+  <testcase name="generateCorrectAnswerEmpty()" classname="commons.ComparativeQuestionTest" time="0.001"/>
+  <testcase name="generateCorrectAnswerLeast()" classname="commons.ComparativeQuestionTest" time="0.001"/>
+  <testcase name="generateCorrectAnswerMost2()" classname="commons.ComparativeQuestionTest" time="0.0"/>
+  <testcase name="generateCorrectAnswerOne()" classname="commons.ComparativeQuestionTest" time="0.0"/>
+  <testcase name="generateCorrectAnswerMost()" classname="commons.ComparativeQuestionTest" time="0.0"/>
+  <testcase name="generateCorrectAnswerNull()" classname="commons.ComparativeQuestionTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

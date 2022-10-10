@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Player.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons</a> &gt; <a href="index.source.html" class="el_package">commons</a> &gt; <span class="el_source">Player.java</span></div><h1>Player.java</h1><pre class="source lang-java linenums">package commons;
+
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.persistence.*;
+import java.util.Objects;
+
+/**
+ * Activity class that is stored in the database
+ *
+ * Stores an activities
+ */
+@ToString
+@Entity
+public class Player implements Comparable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Getter @Setter
+    private Long id;
+
+    @Getter
+    private String name;
+    @Getter
+    private Integer score;
+<span class="fc" id="L29">    @Getter</span>
+    @Transient
+    private int streak = 0; // streak field for getting more points when you answer questions correctly in a row
+
+
+    /**
+     * Empty constructor
+     * Used by Jackson to create object from JSON
+     */
+<span class="fc" id="L38">    public Player(){ }</span>
+
+    /**
+     * Creates new player with name
+     * @param name
+     */
+<span class="fc" id="L44">    public Player(String name) {</span>
+<span class="fc" id="L45">        this.name = name;</span>
+<span class="fc" id="L46">        this.score = 0;</span>
+<span class="fc" id="L47">    }</span>
+
+    /**
+     * Creates new player with name and score
+     * @param name
+     * @param score
+     */
+<span class="fc" id="L54">    public Player(String name, Integer score) {</span>
+<span class="fc" id="L55">        this.name = name;</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        this.score = score &gt;= 0 ? score : 0; // check if score is smaller than 0</span>
+<span class="fc" id="L57">    }</span>
+
+    /**
+     * Creates new player with id, name and score
+     * @param id
+     * @param name
+     * @param score
+     */
+<span class="fc" id="L65">    public Player(Long id, String name, Integer score) {</span>
+<span class="fc" id="L66">        this.id = id;</span>
+<span class="fc" id="L67">        this.name = name;</span>
+<span class="pc bpc" id="L68" title="1 of 2 branches missed.">        this.score = score &gt;= 0 ? score : 0; // check if score is smaller than 0</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * Sets name
+     * @param name
+     * @throws IllegalArgumentException if name is empty
+     */
+    public void setName(String name) {
+<span class="fc" id="L77">        this.name = name;</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">        if(name.length() &gt; 0)</span>
+<span class="fc" id="L79">            this.name = name;</span>
+<span class="fc" id="L80">        else throw new IllegalArgumentException(&quot;Name cannot be empty&quot;);</span>
+<span class="fc" id="L81">    }</span>
+
+    /**
+     * Sets score
+     * @param score
+     * @throws IllegalArgumentException if score is negative
+     */
+    public void setScore(Integer score) {
+<span class="fc" id="L89">        this.score = score;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if(score &gt;= 0)</span>
+<span class="fc" id="L91">            this.score = score;</span>
+<span class="fc" id="L92">        else throw new IllegalArgumentException(&quot;Score cannot be negative&quot;);</span>
+<span class="fc" id="L93">    }</span>
+
+    /**
+     * Comparator for PLayer in descending order
+     * @param otherPlayer
+     */
+    @Override
+    public int compareTo(Object otherPlayer) {
+<span class="fc" id="L101">        int compareScore = ((Player) otherPlayer).getScore();</span>
+<span class="fc" id="L102">        return compareScore - this.score;</span>
+    }
+
+    /**
+     * Sets streak
+     * @param streak
+     * @throws IllegalArgumentException if streak is negative
+     */
+    public void setStreak(int streak) {
+<span class="fc" id="L111">        this.streak = streak;</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if(streak &gt;= 0)</span>
+<span class="fc" id="L113">            this.streak = streak;</span>
+<span class="nc" id="L114">        else throw new IllegalArgumentException(&quot;Streak cannot be negative&quot;);</span>
+<span class="fc" id="L115">    }</span>
+
+    /**
+     * resets streak to 0
+     */
+<span class="fc" id="L120">    public void resetStreak() { streak = 0;}</span>
+
+    /**
+     * Increments streak
+     */
+<span class="fc" id="L125">    public void incrementStreak() { streak++;}</span>
+
+    @Override
+    public boolean equals(Object o) {
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L130" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L131">        Player player = (Player) o;</span>
+<span class="pc bpc" id="L132" title="1 of 6 branches missed.">        return Objects.equals(id, player.id) &amp;&amp; Objects.equals(name, player.name) &amp;&amp; Objects.equals(score, player.score);</span>
+    }
+
+    @Override
+    public int hashCode() {
+<span class="fc" id="L137">        return Objects.hash(id, name, score);</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

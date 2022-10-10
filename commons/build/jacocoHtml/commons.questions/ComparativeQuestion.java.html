@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ComparativeQuestion.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">commons</a> &gt; <a href="index.source.html" class="el_package">commons.questions</a> &gt; <span class="el_source">ComparativeQuestion.java</span></div><h1>ComparativeQuestion.java</h1><pre class="source lang-java linenums">package commons.questions;
+
+import commons.Activity;
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * Class for storing Comparative questions in the format:
+ *      Which activity uses the most/least energy?
+ *          Activity 1
+ *          Activity 2
+ *          Activity 3
+ */
+@Data
+public class ComparativeQuestion implements Question{
+
+    private boolean isMost; // true if the question asks for most, false if least energy
+    private List&lt;Activity&gt; activities; // list of activities
+    private int correct_answer; // index of the correct answer in the list
+
+    /**
+     * Empty constructor
+     * Used by Jackson to create object from JSON
+     */
+<span class="fc" id="L26">    public ComparativeQuestion(){} // needed to be able to build object from json</span>
+
+    /**
+     * Constructor which specifies a list of activities and if question isMost
+     * @param activities List of activities (usually 3)
+     * @param isMost If question asks for the most energy consumption
+     */
+<span class="fc" id="L33">    public ComparativeQuestion(List&lt;Activity&gt; activities, boolean isMost){</span>
+<span class="fc" id="L34">        this.isMost = isMost;</span>
+<span class="fc" id="L35">        this.activities = activities;</span>
+<span class="fc" id="L36">        this.correct_answer = generateCorrectAnswer();</span>
+<span class="fc" id="L37">    }</span>
+
+    private int generateCorrectAnswer() {
+<span class="fc bfc" id="L40" title="All 4 branches covered.">        if(activities == null || activities.size() &lt;= 0){</span>
+<span class="fc" id="L41">            return -1;</span>
+        }
+<span class="fc" id="L43">        int min = 0; // index of minimum</span>
+<span class="fc" id="L44">        int max = 0; // index of maximum</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for(int i = 1; i &lt; activities.size(); i++){</span>
+
+<span class="fc" id="L47">            Activity current = activities.get(i);</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">            if(current.getConsumption_in_wh() &lt; activities.get(min).getConsumption_in_wh() ){</span>
+<span class="fc" id="L49">                min = i; // check if current has smaller consumption than min</span>
+            }
+<span class="fc bfc" id="L51" title="All 2 branches covered.">            if(current.getConsumption_in_wh() &gt; activities.get(max).getConsumption_in_wh() ){</span>
+<span class="fc" id="L52">                max = i; // checks if current has bigger consumption than max</span>
+            }
+        }
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if(isMost){</span>
+<span class="fc" id="L56">            return max;</span>
+        } else {
+<span class="fc" id="L58">            return min;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

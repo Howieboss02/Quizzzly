@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="commons.MultiPlayerGameTest" tests="25" skipped="0" failures="0" errors="0" timestamp="2022-04-06T14:44:25" hostname="archsus" time="0.024">
+  <properties/>
+  <testcase name="TestPlayerListGetter()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestPlayerListHasher()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestNextQuestion()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestAddPointsAllWrongAnswerManyPlayers()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="TestPlayerListSetter()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="TestAddPointsEstimationQuestionManyPlayers()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="getGameStatusTest()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="removePlayerTest()" classname="commons.MultiPlayerGameTest" time="0.002"/>
+  <testcase name="TestQuestionListGetter()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestAddPointsEstimationQuestionOnePlayer()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestQuestionListSetter()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestAddPointsRegularQuestionManyPlayers()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestQuestionNumberGetter()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="TestAddPointsMixedAnswersManyPlayers()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="addManyQuestions()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="normalConstructorTest()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestCurrentScreenGetter()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestGameIDGetter()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestGetPointsToBeAdded()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="TestCurrentScreenSetter()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="TestAddPointsWrongAnswerOnePlayer()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="TestGameIDSetter()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="testAddQuestion()" classname="commons.MultiPlayerGameTest" time="0.0"/>
+  <testcase name="TestAddPointsRegularQuestionOnePlayer()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <testcase name="emptyConstructorTest()" classname="commons.MultiPlayerGameTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

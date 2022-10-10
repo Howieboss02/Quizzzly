@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.2.1">
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/Activity.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/GameUpdatesPacket.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/MultiPlayerGame.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/Player.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/questions/ComparativeQuestion.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/questions/EqualityQuestion.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/questions/EstimationQuestion.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/questions/MCQuestion.java">
+</file>
+<file name="/home/howie/Documents/CSE_YEAR_1/OOPP/repository-template/commons/src/main/java/commons/questions/Question.java">
+</file>
+</checkstyle>
